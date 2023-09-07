@@ -59,7 +59,7 @@ if(isset($_POST['save']))
 			  $max_buy_rate = $sub_rate - 10; }
 		else if($sub_rate>100)
 			{ $min_buy_rate = $sub_rate - 25;
-			  $max_buy_rate = $sub_rate - 10; }
+			  $max_buy_rate = $sub_rate - 15; }
 		$buy_rate = "$".$min_buy_rate."-".$max_buy_rate."/hr"; }
 		if(isset($_POST['referral']))
 			{		$referral = $_POST['referral']; 	}
@@ -187,8 +187,8 @@ VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$l
 									<td width="15%" align="left" valign="top"><label>Need on Tier1/IP W2?:&nbsp;&nbsp;&nbsp;</label></td>
 								<td width="90%" align="left" valign="top">
 									<select name="needonw2" class="form-control-in">
-										<option value="1"> Yes </option>
-           								<option value="2"> No </option>
+										<option value="1"> No </option>
+           								<option value="2"> Yes </option>
 									</select></td>
 </div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
 

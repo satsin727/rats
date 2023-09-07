@@ -62,6 +62,9 @@ switch ( $action ) {
   case 'clientlistdownload':
     clientlistdownload();
     break;
+  case 'postreq':
+    postreq();
+    break;
   default:
     dashboard();
 }
@@ -160,6 +163,7 @@ function adduser() { $selected = "listusers"; require( "add_user.php" ); }
 function addreq() { $selected = "postreq"; require( "add_req.php" ); }
 function listusers() {  $selected = "listusers"; require( "list_users.php" );  }
 function reqlist() {  $selected = "reqlist"; require( "reqlist.php" );  }
+function postreq() {  $selected = "postreq"; require( "reqlist.php" );  }
 function addconsultant() {  $selected = "listconsultants";  require( "add_consultant.php" );  }
 function listconsultants() {  $selected = "listconsultants"; require( "list_consultants.php" );  }
 function addskill() {  $selected = "listconsultants";  require( "add_skill.php" ); }

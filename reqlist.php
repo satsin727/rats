@@ -65,7 +65,7 @@ $i=1;
 foreach( $data as $row) { ?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
-    	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </td>
+    	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
     	<td data-search="<?php echo $row['sm']; ?>"> <?php echo $row['sm']; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 

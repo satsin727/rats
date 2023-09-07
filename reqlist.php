@@ -62,14 +62,19 @@ $data = $ins->fetchAll();
 						   <tbody>
 <?php
 $i=1;
-foreach( $data as $row) { ?>
+foreach( $data as $row) { 
+	
+	$sm_id = $row['sm'];
+	$sm_name = $conn->query("select name from users where uid = $sm_id")->fetchColumn(); 
+	
+	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
     	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
-    	<td data-search="<?php echo $row['sm']; ?>"> <?php echo $row['sm']; ?></td>
+    	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
-    	<td> <?php if($row['status']==1) { echo "Active"; } else echo "Disabled"; ?></td>
+    	<td> <?php if($row['status']==1) { echo "Active"; } else echo "closed"; ?></td>
     	<td> 
     		<a href="reqcmd.php?do=edit&id=<?php echo $row['id']; ?>"><img src="images/b_edit.png" alt="Edit" width="16" height="16" border="0" title="Edit" /></a>
     				 &nbsp;&nbsp;&nbsp;

@@ -29,7 +29,7 @@ require("includes/menu.php");
 
 if(isset($_POST['assignrecruiter']))
 		{	
-			if($dta['level'] == 1 || $dta['level'] == 2)
+			if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 		{
 			$req_id = $_POST['req_id'];
 			$rec_id = $_POST['rec_id'];			
@@ -99,7 +99,7 @@ if($status==0 || $status==3)
 	}
 	if($do=='assign')
 	{
-		if($dta['level'] == 1 || $dta['level'] == 2)
+		if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 		{
 			$qcid = "select * from users where ulevel = 4 or ulevel = 2";
 			$cq= $conn->prepare($qcid);
@@ -129,7 +129,7 @@ if($status==0 || $status==3)
 		}
 		echo "<script>
 				alert(' Assigning permission is not set.');
-				window.location.href='admin.php?action=reqlist';
+				window.close();
 				</script>";
 
 	}

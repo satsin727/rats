@@ -20,9 +20,9 @@ $dta = $ins->fetch();
 if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
-require("includes/header.php");
+//require("includes/header.php");
 $selected = "reqlist";
-require("includes/menu.php");
+//require("includes/menu.php");
 
 
 
@@ -101,6 +101,7 @@ if(isset($_GET['do']))
 			$cdta = $cq->fetchAll();
 	?>
 		<form action="#" method="post">
+			<br><br>
 			<tr> <td><label>Recruiter:</label> </td>
 				<td> 
 				<select name="rec_id" >

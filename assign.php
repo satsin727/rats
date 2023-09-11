@@ -98,32 +98,32 @@ $data = $ins->fetchAll();
 $i=1;
 foreach( $data as $row) { 
 	
-	$sm_id = $row['A.sm'];
+	$sm_id = $row['sm'];
 	$sm_name = $conn->query("select name from users where uid = $sm_id")->fetchColumn(); 
 	
-	if($row['A.contract_type']== 1 && $row['A.needonw2'] == 1) 
+	if($row['contract_type']== 1 && $row['needonw2'] == 1) 
 	{
 		$req_type = "C2C";
 	}
-	else if($row['A.contract_type']== 1 && $row['A.needonw2'] == 2) 
+	else if($row['contract_type']== 1 && $row['needonw2'] == 2) 
 	{
 		$req_type = "C2C/need on W2";
 	}
-	else if($row['A.contract_type']== 2 && $row['A.needonw2'] == 1) 
+	else if($row['contract_type']== 2 && $row['needonw2'] == 1) 
 	{
 		$req_type = "C2H";
 	}
-	else if($row['A.contract_type']== 2 && $row['A.needonw2'] == 2) 
+	else if($row['contract_type']== 2 && $row['needonw2'] == 2) 
 	{
 		$req_type = "C2H/need on W2";
 	}
-	else if($row['A.contract_type']== 3) 
+	else if($row['contract_type']== 3) 
 	{
-		if($row['A.needonw2'] == 2) { $req_type = "Referral"; } else { $req_type = "FTE"; }
-		$referral = "$".$row['A.referral']."/hr";
-		$salary = "$".$row['A.salary']."/annually";
+		if($row['needonw2'] == 2) { $req_type = "Referral"; } else { $req_type = "FTE"; }
+		$referral = "$".$row['referral']."/hr";
+		$salary = "$".$row['salary']."/annually";
 	}
-	if($row['A.assigned']==1)
+	if($row['assigned']==1)
 	{
 		$reqid = $row['A.id'];
 		$assignedrecid = $conn->query("SELECT rec_id FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
@@ -133,20 +133,20 @@ foreach( $data as $row) {
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
-		<td data-search="<?php echo $row['A.date']; ?>"> <?php $time = strtotime($row['B.datetime']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
-    	<td data-search="<?php echo $row['A.title']." - ".$row['A.location']." - ".$row['A.duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['A.id']; ?>" target="_blank"><?php echo $row['A.title']." - ".$row['A.location']." - ".$row['A.duration']; ?> </a> </td>
-    	<td data-search="<?php echo $row['A.end_client']; ?>"> <?php echo $row['A.end_client']; ?></td>
+		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['B.datetime']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
+    	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
+    	<td data-search="<?php echo $row['end_client']; ?>"> <?php echo $row['end_client']; ?></td>
     	
-		<td> <?php if($row['A.contract_type']== 3)
+		<td> <?php if($row['contract_type']== 3)
 		{
-			if($row['A.needonw2'] == 2) { echo $referral; }
+			if($row['needonw2'] == 2) { echo $referral; }
 			else { echo $salary; }
 		}
 		else {
-		echo "$".$row['A.min_buy_rate']."-"."$".$row['A.max_buy_rate']."/hr"; } ?></td>		
+		echo "$".$row['min_buy_rate']."-"."$".$row['max_buy_rate']."/hr"; } ?></td>		
     	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
-    	<td data-search="<?php echo $row['A.number_of_subs']; ?>"> <?php echo $row['A.number_of_subs']; ?></td>
+    	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
     	<td> 
 		

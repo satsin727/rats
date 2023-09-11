@@ -151,7 +151,7 @@ foreach( $data as $row) {
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
     	<td> 
-		
+		<?php if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 4) {  ?><a href="submit.php?rid=<?php echo $row['id']; ?><button name="viewcomment" class="btn btn-primary">View Comment</button></a> <?php } ?>
     	<?php if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3) {  ?>	<a href ="reqcmd.php?do=deleteassign&id=<?php echo $row['id']; ?>&aid=<?php echo $row['aid']; ?>" onClick="return confirm('Are you sure you want to delete the assignment?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a> &nbsp;&nbsp;&nbsp; <?php } ?>
     		
     	</td>

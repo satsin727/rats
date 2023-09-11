@@ -77,9 +77,10 @@ $data = $ins->fetchAll();
 						    <tr>
 						        <th data-field="id" data-sortable="true">ID</th>
 								<th data-field="Datetime"  data-sortable="true">Datetime</th>
-						        <th data-field="Subject"  data-sortable="true">Subject</th>
+						        <th data-field="Subject"  data-sortable="true">Subject</th>								
 								<th data-field="Client" data-sortable="true">Client</th>
-								<th data-field="Rate" data-sortable="true">Buy Rate</th>
+								<th data-field="Rate" data-sortable="true">Buy Rate</th>								
+								<th data-field="Req type" data-sortable="true">Type</th>
 						        <th data-field="SM" data-sortable="true">SM</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="Status" >Status</th>
@@ -94,13 +95,34 @@ foreach( $data as $row) {
 	$sm_id = $row['sm'];
 	$sm_name = $conn->query("select name from users where uid = $sm_id")->fetchColumn(); 
 	
+	if($row['contract_type']== 1 && $row['needonw2'] == 1) 
+	{
+		$req_type = "C2C";
+	}
+	else if($row['contract_type']== 1 && $row['needonw2'] == 2) 
+	{
+		$req_type = "C2C/need on W2";
+	}
+	else if($row['contract_type']== 2 && $row['needonw2'] == 1) 
+	{
+		$req_type = "C2H";
+	}
+	else if($row['contract_type']== 2 && $row['needonw2'] == 2) 
+	{
+		$req_type = "C2H/need on W2";
+	}
+	else if($row['contract_type']== 3) 
+	{
+		$req_type = "Referral/FTE";
+	}
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
 		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['date']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
     	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
     	<td data-search="<?php echo $row['end_client']; ?>"> <?php echo $row['end_client']; ?></td>
-    	<td data-search="<?php echo $row['buy_rate']; ?>"> <?php echo $row['buy_rate']; ?></td>
+    	<td data-search="<?php echo $row['buy_rate']; ?>"> <?php echo $row['buy_rate']; ?></td>		
+    	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 

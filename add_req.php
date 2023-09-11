@@ -125,9 +125,9 @@ VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$l
 <div class="form-group">
 									<td width="15%" align="left" valign="top"><label>CTH Role?:&nbsp;&nbsp;&nbsp;</label></td>
 								<td width="90%" align="left" valign="top">										<select name="contract_type" class="form-control-in">
-										<option value="1"> Yes </option>
-           								<option value="2"> No </option>
-           								<option value="3"> No, FTE Role </option>
+								<option value="1"> No </option>		
+								<option value="2"> Yes </option>
+           						<option value="3"> No, Referral/FTE Role </option>
 									</select></td>
 </div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
 
@@ -140,10 +140,11 @@ VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$l
 									<td width="15%" align="left" valign="top"><label>Consultant Location:&nbsp;&nbsp;&nbsp;</label></td>
 								<td width="90%" align="left" valign="top">	
 									<select name="local" class="form-control-in">
-										<option value="1"> Only Locals Needed, F2F Needed</option>
-           								<option value="2"> Local Preferred, F2F Mandatory</option>
-           								<option value="3"> Non Local Fine</option>
-           								<option value="4"> Consultant should be in same timezone.</option>
+										<option value="1"> Only Locals Needed </option>
+										<option value="2"> Only Locals Needed, F2F Needed</option>
+           								<option value="3"> Local Preferred, F2F Mandatory</option>
+           								<option value="4"> Non Local Fine</option>
+           								<option value="5"> Consultant should be in same timezone.</option>
 									</select></td>
 </div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
 
@@ -184,7 +185,7 @@ VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$l
 </div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
 
 <div class="form-group">
-									<td width="15%" align="left" valign="top"><label>Need on Tier1/IP W2?:&nbsp;&nbsp;&nbsp;</label></td>
+									<td width="15%" align="left" valign="top"><label>Need on W2?:&nbsp;&nbsp;&nbsp;</label></td>
 								<td width="90%" align="left" valign="top">
 									<select name="needonw2" class="form-control-in">
 										<option value="1"> No </option>

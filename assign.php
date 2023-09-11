@@ -11,7 +11,7 @@ else
 $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
 $query = "select * from users where `uid` = :u";
 $ins= $conn->prepare($query);
-$ins->bindValue( ":u", $sessid, PDO::PARAM_INT );
+$ins->bindValue( ":u", $sessid, PDO::PARAM_STR );
 $ins->execute();
 $dta = $ins->fetch();
 
@@ -22,77 +22,140 @@ if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 require("includes/header.php");
 require("includes/menu.php");
 
-if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
+if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 {
 
-$query = "select * from assigned";
+	$olddate = 0;
+	if(isset($_GET['status']))
+	{
+		$status = $_GET['status'];
+	}
+	else { $status = 1; } //1 = open , 2 = reqs closed, 3 reqs deleted 
+	if(isset($_POST['date']))
+	{
+		$cdate = $_POST['date'];
+		$olddate = 1;
+		$cdate = strtotime($cdate);
+		$curdate =date('Y-m-d',$cdate);
+	}
+	else
+	{
+		$curdate =date('Y-m-d');
+	}
+	
+    $showweekly=0;
+	if(isset($_GET['showweekly']))
+	{
+		$showweekly=1;
+	}
+
+	if($dta['level'] == 1 ||$dta['level'] == 2)
+		{  
+			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1";
+		}
+	else if($dta['level'] == 3) {
+			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and A.sm = $dta['uid']";
+		}
+	else if($dta['level'] == 4) {
+			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and B.rec_id = $dta['uid']";
+		}
 $ins= $conn->prepare($query);
 $ins->execute();
 $data = $ins->fetchAll();
-$conn=null;
 ?>
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-				<li class="active">Dashboard</li>
+				<li class="active">Assigned Requirements</li>
 			</ol>
 </div>
 <div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading"><a href="admin.php?action=assignconsultant"><button name="assignconsultant" class="btn btn-primary">Assign Consultant</button></a></div>
+				
+					<div class="panel-heading"><a href="admin.php?action=addreq&type=1"><button name="addauser" class="btn btn-primary">Add a C2C Requirement</button></a></div>
+
+
 					<div class="panel-body">
 						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="uid" data-sort-order="asc">
 						    <thead>
 						    <tr>
-						        <th data-field="uid" data-sortable="true">ID</th>
-						        <th data-field="name"  data-sortable="true">Consultant Name</th>
-						        <th data-field="skill" data-sortable="true">Skill</th>
-						        <th data-field="Manager" data-sortable="true">Assigned Manager</th>
-						        <th data-field="Action" data-sortable="true">Actions</th>
+						        <th data-field="id" data-sortable="true">ID</th>
+								<th data-field="Datetime"  data-sortable="true">Datetime</th>
+						        <th data-field="Subject"  data-sortable="true">Subject</th>								
+								<th data-field="Client" data-sortable="true">Client</th>
+								<th data-field="Rate" data-sortable="true">Buy Rate</th>								
+								<th data-field="Req type" data-sortable="true">Type</th>
+						        <th data-field="SM" data-sortable="true">SM</th>
+						        <th data-field="Submissions" >Submissions</th>
+						        <th data-field="cmd" >Actions</th>
 						    </tr>
 						    </thead>
 						   <tbody>
 <?php
 $i=1;
 foreach( $data as $row) { 
-$cid=$row['cid'];
-$uid=$row['uid'];
-$conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-$query = "select * from users where `uid` = $uid AND `status` = 1";
-$ins= $conn->prepare($query);
-$ins->execute();
-$udata = $ins->fetch();
-$query2 = "select * from consultants where `cid` = $cid AND `status` = 1";
-$ins2= $conn->prepare($query2);
-$ins2->execute();
-$cdata = $ins2->fetch();
-
-if($cdata['cid']!== null && $udata['uid']!== null)
-{
-								$sid = $cdata['skill'];
-								$q2 = "select * from skill where `sid` = $sid";
-								$ins3= $conn->prepare($q2);
-								$ins3->execute(); 
-								$dta2 = $ins3->fetch(); 
-								$conn=null; 
+	
+	$sm_id = $row['A.sm'];
+	$sm_name = $conn->query("select name from users where uid = $sm_id")->fetchColumn(); 
+	
+	if($row['A.contract_type']== 1 && $row['A.needonw2'] == 1) 
+	{
+		$req_type = "C2C";
+	}
+	else if($row['A.contract_type']== 1 && $row['A.needonw2'] == 2) 
+	{
+		$req_type = "C2C/need on W2";
+	}
+	else if($row['A.contract_type']== 2 && $row['A.needonw2'] == 1) 
+	{
+		$req_type = "C2H";
+	}
+	else if($row['A.contract_type']== 2 && $row['A.needonw2'] == 2) 
+	{
+		$req_type = "C2H/need on W2";
+	}
+	else if($row['A.contract_type']== 3) 
+	{
+		if($row['A.needonw2'] == 2) { $req_type = "Referral"; } else { $req_type = "FTE"; }
+		$referral = "$".$row['A.referral']."/hr";
+		$salary = "$".$row['A.salary']."/annually";
+	}
+	if($row['A.assigned']==1)
+	{
+		$reqid = $row['A.id'];
+		$assignedrecid = $conn->query("SELECT rec_id FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
+		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $assignedrecid;")->fetchColumn();
+		$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
+	}
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
-    	<td data-search="<?php echo $cdata['cfname']; ?>"> <?php echo $cdata['cfname']." ".$cdata['clname']; ?></td>
-    	<td data-search="<?php echo $dta2['skillname']; ?>"> <?php echo $dta2['skillname']; ?></td>    	
-    	<td data-search="<?php echo $udata['name']; ?>"> <?php echo $udata['name']; ?></td>  
+		<td data-search="<?php echo $row['A.date']; ?>"> <?php $time = strtotime($row['B.datetime']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
+    	<td data-search="<?php echo $row['A.title']." - ".$row['A.location']." - ".$row['A.duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['A.id']; ?>" target="_blank"><?php echo $row['A.title']." - ".$row['A.location']." - ".$row['A.duration']; ?> </a> </td>
+    	<td data-search="<?php echo $row['A.end_client']; ?>"> <?php echo $row['A.end_client']; ?></td>
+    	
+		<td> <?php if($row['A.contract_type']== 3)
+		{
+			if($row['A.needonw2'] == 2) { echo $referral; }
+			else { echo $salary; }
+		}
+		else {
+		echo "$".$row['A.min_buy_rate']."-"."$".$row['A.max_buy_rate']."/hr"; } ?></td>		
+    	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
+    	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
+    	<td data-search="<?php echo $row['A.number_of_subs']; ?>"> <?php echo $row['A.number_of_subs']; ?></td>
+
     	<td> 
-    		<a href="assigncmd.php?do=change&id=<?php echo $row['id']; ?>"><img src="images/b_edit.png" alt="Change" width="16" height="16" border="0" title="Change" /></a>
-    				 &nbsp;&nbsp;&nbsp;
-    				<a href ="assigncmd.php?do=delete&id=<?php  echo $row['id']; ?>" onClick="return confirm('Are you sure you want to delete ?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a>
-    				 &nbsp;&nbsp;&nbsp;    			
-    	</td> 
+		
+    	<?php if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3) {  ?>	<a href ="reqcmd.php?do=deleteassign&id=<?php echo $row['B.id']; ?>" onClick="return confirm('Are you sure you want to delete the assignment?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a> &nbsp;&nbsp;&nbsp; <?php } ?>
+    		
+    	</td>
     </tr>
-    <?php  } //for if
-} //foreach
+    <?php
+}
 ?>
 						   </tbody>
 						</table>
@@ -108,7 +171,7 @@ if($cdata['cid']!== null && $udata['uid']!== null)
 else
 {
 	echo "<script>
-alert('You Need to be Admin/Manager to view this page.');
+alert('You Need to be Authorised User to view this page.');
 window.location.href='admin.php';
 </script>"; 
 }

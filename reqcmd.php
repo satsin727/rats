@@ -191,11 +191,15 @@ if(isset($_GET['do']))
 
 	else if($do=='edit')
 	{
-			$qcid = "select * from req where id = $id";
-			$cq= $conn->prepare($qcid);
-			$cq->execute();
-			$cdta = $cq->fetch();
 
+require("includes/header.php");
+$selected = "reqlist";
+require("includes/menu.php");
+
+$qcid = "select * from req where id = $id";
+$cq= $conn->prepare($qcid);
+$cq->execute();
+$cdta = $cq->fetch();
 		?>
 
 				<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			

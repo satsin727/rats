@@ -106,7 +106,8 @@ window.location.href='lout.php?id="."$rid"."';
 
       // Login successful: Create a session and redirect to the admin homepage
       $date = date("Y-m-d H:i:s");
-      $_SESSION['rat_username'] = md5(md5($u).$date);
+      $day = date("Y-m-d");
+      $_SESSION['rat_username'] = md5(md5($u).$day);
       $_SESSION['rat_id']= $dta['uid'];
       //$_SESSION['rat_date'] = $date ; 
       $ip= $_SERVER['REMOTE_ADDR'];

@@ -144,6 +144,152 @@ if(isset($_GET['do']))
 				window.location.href='admin.php?action=reqlist';
 				</script>"; 
 	}
+
+	else if($do=='edit')
+	{
+			$qcid = "select * from req where id = $id";
+			$cq= $conn->prepare($qcid);
+			$cq->execute();
+			$cdta = $cq->fetchAll();
+
+		?>
+
+				<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+				<div class="row">
+					<ol class="breadcrumb">
+						<li><a href=""><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+						<li class="active">Edit Requirement</li>
+					</ol>
+				</div><!--/.row-->
+				
+				<div class="row">
+					<div class="col-lg-12">&nbsp;
+					</div>
+				</div><!--/.row-->
+						
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+
+		<form action="#" method="post">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+		<div class="form-group">
+										<td width="15%" align="left" valign="top">	<label>Job Title:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top"><input name="title" class="form-control-in" value="<?php echo $cdta['title']; ?>" ></td>
+		</div> </tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Location:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="location" class="form-control-in" value="<?php echo $cdta['location']; ?>" ></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Duration:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="duration" class="form-control-in" value="<?php echo $cdta['duration']; ?>" ></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>CTH Role?:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">										<select name="contract_type" class="form-control-in">
+										<option value="1" <?php if($cdta['contract_type']==1) { echo "selected";} ?>> No </option>		
+										<option value="2" <?php if($cdta['contract_type']==2) { echo "selected";} ?>> Yes </option>
+										<option value="3" <?php if($cdta['contract_type']==3) { echo "selected";} ?>> No, Referral/FTE Role </option>
+											</select></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Visa:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="visa" class="form-control-in" value="<?php echo $cdta['visa']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Consultant Location:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	
+											<select name="local" class="form-control-in">
+												<option value="1" <?php if($cdta['local']==1) { echo "selected";} ?>> Only Locals Needed </option>
+												<option value="2" <?php if($cdta['local']==2) { echo "selected";} ?>> Only Locals Needed, F2F Needed</option>
+												<option value="3" <?php if($cdta['local']==3) { echo "selected";} ?>> Local Preferred, F2F Mandatory</option>
+												<option value="4" <?php if($cdta['local']==4) { echo "selected";} ?>> Non Local Fine</option>
+												<option value="5" <?php if($cdta['local']==5) { echo "selected";} ?>> Consultant should be in same timezone.</option>
+											</select></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Interview:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="interview" class="form-control-in" value="<?php echo $cdta['interview']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<?php if($cdta['req_type'] == 1) { ?>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Submission Rate:&nbsp;&nbsp;&nbsp;</label></td>	
+										<td width="90%" align="left" valign="top">	<input name="sub_rate" class="form-control-in" value="<?php echo $cdta['sub_rate']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<?php } ?>
+		<?php if($cdta['req_type'] == 2) { ?>
+		<div class="form-group">
+
+											<td width="15%" align="left" valign="top"><label>Referral fee:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="referral" class="form-control-in" value="<?php echo $cdta['referral']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<?php } ?>
+		<?php if($cdta['req_type'] == 3) { ?>
+		<div class="form-group">
+
+											<td width="15%" align="left" valign="top"><label>FTE Salary:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="salary" class="form-control-in" value="<?php echo $cdta['salary']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<?php } ?>
+
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>End Client Name:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="end_client" class="form-control-in" value="<?php echo $cdta['end_client']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Tier 1/IP Name:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="tier1_ip" class="form-control-in" value="<?php echo $cdta['tier1_ip']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Need on W2?:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">
+											<select name="needonw2" class="form-control-in">
+												<option value="1" <?php if($cdta['needonw2']==1) { echo "selected";} ?>> No </option>
+												<option value="2" <?php if($cdta['needonw2']==2) { echo "selected";} ?>> Yes </option>
+											</select></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Job Description:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top"><textarea class="ckeditor" name="description" ><?php echo base64_decode($cdta['description']); ?></textarea></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+		<div class="form-group">
+											<td width="15%" align="left" valign="top"><label>Additional notes:&nbsp;&nbsp;&nbsp;</label></td>
+										<td width="90%" align="left" valign="top">	<input name="add_notes" class="form-control-in" value="<?php echo $cdta['add_notes']; ?>"></td>
+		</div></tr> <tr><td><label>&nbsp;&nbsp;&nbsp;</label></td></tr> <tr>
+
+		<input type="hidden" name="reqtype" value="<?php echo $cdta['req_type']; ?>">
+		<input type="hidden" name="req_id" value="<?php echo $cdta['id']; ?>">
+
+									<td  align="left" ><button type="submit" name="save" class="btn btn-primary">Save</button> </td>					
+						</tr>
+						</table>
+
+		</form>
+								
+						</div></div>
+					</div><!-- /.col-->
+				</div><!-- /.row -->
+				
+			</div>
+
+
+
+
+	<?php
+
+	}
 	
 	else
 	{

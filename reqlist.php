@@ -26,6 +26,11 @@ if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 {
 
 	$olddate = 0;
+	if(isset($_GET['status']))
+	{
+		$status = $_GET['status'];
+	}
+	else { $status = 1; } //1 = open , 2 = reqs closed, 3 reqs deleted 
 	if(isset($_POST['date']))
 	{
 		$cdate = $_POST['date'];
@@ -44,7 +49,7 @@ if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 		$showweekly=1;
 	}
 
-$query = "select * from req";
+$query = "select * from req where status = $status";
 $ins= $conn->prepare($query);
 $ins->execute();
 $data = $ins->fetchAll();
@@ -73,8 +78,8 @@ $data = $ins->fetchAll();
 						        <th data-field="id" data-sortable="true">ID</th>
 								<th data-field="Datetime"  data-sortable="true">Datetime</th>
 						        <th data-field="Subject"  data-sortable="true">Subject</th>
-								<th data-field="SM" data-sortable="true">Client</th>
-								<th data-field="SM" data-sortable="true">Buy Rate</th>
+								<th data-field="Client" data-sortable="true">Client</th>
+								<th data-field="Rate" data-sortable="true">Buy Rate</th>
 						        <th data-field="SM" data-sortable="true">SM</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="Status" >Status</th>

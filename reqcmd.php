@@ -127,10 +127,11 @@ if($status==0 || $status==3)
 
 	<?php
 		}
+		else {
 		echo "<script>
 				alert(' Assigning permission is not set.');
 				window.close();
-				</script>";
+				</script>"; }
 
 	}
 	if($do=='delete')

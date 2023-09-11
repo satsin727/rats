@@ -89,7 +89,7 @@ $data = $ins->fetchAll();
 								<th data-field="Rate" data-sortable="true">Buy Rate</th>								
 								<th data-field="Req type" data-sortable="true">Type</th>
 						        <th data-field="SM" data-sortable="true">SM</th>
-						        <th data-field="Submissions" >Assigned</th>
+						        <th data-field="Submissions" >Recruiter</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="cmd" >Actions</th>
 						    </tr>
@@ -127,9 +127,9 @@ foreach( $data as $row) {
 	if($row['assigned']==1)
 	{
 		$rec_id = $row['rec_id'];
-		$reqid = $row['id'];
+	//	$reqid = $row['id'];
 		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $rec_id;")->fetchColumn();
-		$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
+	//	$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
 	}
 	?>
     <tr>
@@ -147,7 +147,7 @@ foreach( $data as $row) {
 		echo "$".$row['min_buy_rate']."-"."$".$row['max_buy_rate']."/hr"; } ?></td>		
     	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
-		<td> <?php if($row['assigned']==1) { echo $assignedcount.",".$assignedrecsm; } else { echo "No" ; } ?></td>
+		<td> <?php echo $assignedrecsm; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
     	<td> 

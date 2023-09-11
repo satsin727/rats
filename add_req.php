@@ -22,7 +22,7 @@ if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 require("includes/header.php");
 require("includes/menu.php");
 
-if($dta['level'] == 1 || $dta['level'] == 2)
+if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 {
 
 $reqtype = $_GET['type'];

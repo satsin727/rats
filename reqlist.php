@@ -113,7 +113,7 @@ foreach( $data as $row) {
 	}
 	else if($row['contract_type']== 3) 
 	{
-		$req_type = "Referral/FTE";
+		if($row['needonw2'] == 2) { $req_type = "Referral"; } else { $req_type = "FTE"; }
 		$referral = "$".$row['referral']."/hr";
 		$salary = "$".$row['salary']."/annually";
 	}

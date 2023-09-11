@@ -121,7 +121,7 @@ foreach( $data as $row) {
 		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['date']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
     	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
     	<td data-search="<?php echo $row['end_client']; ?>"> <?php echo $row['end_client']; ?></td>
-    	<td data-search="<?php echo $row['buy_rate']; ?>"> <?php echo $row['buy_rate']; ?></td>		
+    	<td data-search="<?php echo $row['max_buy_rate']; ?>"> <?php echo "$".$row['min_buy_rate']."-"."$".$row['max_buy_rate']."/hr"; ?></td>		
     	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>

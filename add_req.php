@@ -78,8 +78,8 @@ if(isset($_POST['save']))
 
 
 		$conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-		$inquery = "INSERT INTO `req` (`id`, `title`, `location`, `duration`, `contract_type`, `visa`, `local`, `interview`, `sub_rate`, `buy_rate`, `referral`, `salary`, `end_client`, `tier1_ip`, `needonw2`, `description`, `add_notes`, `sm`, `number_of_subs`, `status`, `date`) 
-VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$local', '$interview', '$sub_rate', '$buy_rate', '$referral', '$salary', '$end_client', '$tier1_ip', '$needonw2', '$description', '$add_notes', '$sm', '$number_of_subs', '$status', '$date');";
+		$inquery = "INSERT INTO `req` (`id`, `title`, `location`, `duration`, `contract_type`, `visa`, `local`, `interview`, `sub_rate`, `min_buy_rate`, `max_buy_rate`,`referral`, `salary`, `end_client`, `tier1_ip`, `needonw2`, `description`, `add_notes`, `sm`, `number_of_subs`, `status`, `date`) 
+VALUES (NULL, '$title', '$location', '$duration', '$contract_type', '$visa', '$local', '$interview', '$sub_rate', '$min_buy_rate','$max_buy_rate', '$referral', '$salary', '$end_client', '$tier1_ip', '$needonw2', '$description', '$add_notes', '$sm', '$number_of_subs', '$status', '$date');";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
 		header( "Location: admin.php?action=reqlist" );

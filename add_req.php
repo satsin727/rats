@@ -31,7 +31,8 @@ $reqtype = $_GET['type'];
 if(isset($_POST['save']))
 		{
 		$sub_rate = "0";
-		$buy_rate = "0";
+		$min_buy_rate = "0";
+		$max_buy_rate = "0";
 		$referral = "0";
 		$salary = "0";
 		$end_client = "Confidential";

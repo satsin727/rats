@@ -18,7 +18,7 @@
 { ?>
 			<li class="<?php if($selected=="postreq") { echo "active"; } else { echo "parent"; } ?>"><a href="admin.php?action=postreq"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Post Requirement</a></li>
 			<li class="<?php if($selected=="reqlist") { echo "active"; } else { echo "parent"; } ?>"><a href="admin.php?action=reqlist"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Requirement list</a></li>
-			<li class="<?php if($selected=="assignreq") { echo "active"; } else { echo "parent"; } ?>"><a href="admin.php?action=assignreq"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Assign Requirement</a></li>
+			<li class="<?php if($selected=="assignreq") { echo "active"; } else { echo "parent"; } ?>"><a href="admin.php?action=assignreq"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Assigned Requirement</a></li>
 <?php } ?>
 			<li class="<?php if($selected=="submissions") { echo "active"; } else { echo "parent"; } ?>"><a href="admin.php?action=submissions"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Submissions</a></li>
 

@@ -81,7 +81,8 @@ $data = $ins->fetchAll();
 								<th data-field="Client" data-sortable="true">Client</th>
 								<th data-field="Rate" data-sortable="true">Buy Rate</th>								
 								<th data-field="Req type" data-sortable="true">Type</th>
-						        <th data-field="SM" data-sortable="true">SM</th>
+						        <th data-field="SM" data-sortable="true">SM</th>								
+						        <th data-field="assigned" >Assigned</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="Status" >Status</th>
 						        <th data-field="cmd" >Actions</th>
@@ -117,6 +118,12 @@ foreach( $data as $row) {
 		$referral = "$".$row['referral']."/hr";
 		$salary = "$".$row['salary']."/annually";
 	}
+	if($row['assigned']==1)
+	{
+		$assignedrecid = $conn->query("SELECT rec_id FROM `assigned` WHERE `req_id`= $row['id'];")->fetchColumn();
+		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $assignedrecid;")->fetchColumn();
+		$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $row['id'];")->fetchColumn();
+	}
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
@@ -133,6 +140,7 @@ foreach( $data as $row) {
 		echo "$".$row['min_buy_rate']."-"."$".$row['max_buy_rate']."/hr"; } ?></td>		
     	<td data-search="<?php echo $req_type; ?>"> <?php echo $req_type; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
+    	<td> <?php if($row['assigned']==1) { echo $assignedcount.",".$assignedrecsm; } else { echo "No" ; } ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
     	<td> <?php if($row['status']==1) { echo "Active"; } else if($row['status']==3) { echo "Deleted"; } else { echo "closed"; } ?></td>

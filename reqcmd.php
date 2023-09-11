@@ -40,6 +40,9 @@ if(isset($_POST['assignrecruiter']))
 VALUES (NULL, '$req_id', '$rec_id', '$assignedby', '$currentdatetime');";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
+		$uinquery = "Update `req` set assigned = 1 where id = $req_id";
+				$uins= $conn->prepare($uinquery);
+				$uins->execute();
 			echo "<script>alert('Recruiter assigned to this role.');window.close();</script>"; 
 		}
 		echo "<script>alert('You need permission to assign recruiters.');window.close();</script>";

@@ -45,7 +45,7 @@ VALUES (NULL, '$req_id', '$rec_id', '$assignedby', '$currentdatetime');";
 		echo "<script>alert('You need permission to assign recruiters.');window.close();</script>";
 	}
 
-if($dta['level'] == 1)
+if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 {
 
 

@@ -123,6 +123,11 @@ if(isset($_GET['do']))
 				$inquery = "UPDATE `req` SET `status` = '0' WHERE `id` = $id";
 				$ins= $conn->prepare($inquery);
 				$ins->execute();
+				
+				$dinquery = "Delete from `assigned` WHERE `req_id` = $id";
+				$dins= $conn->prepare($dinquery);
+				$dins->execute();
+				
 				echo "<script>
 						alert(' Requirement has been Disabled.');
 						window.location.href='admin.php?action=reqlist';
@@ -186,8 +191,11 @@ if(isset($_GET['do']))
 		$inquery = "UPDATE `req` SET `status` = '3' WHERE `id` = $id";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
+		$dinquery = "Delete from `assigned` WHERE `req_id` = $id";
+		$dins= $conn->prepare($dinquery);
+		$dins->execute();
 		echo "<script>
-				alert(' Requirement has been deleted.');
+				alert(' Requirement has been deleted. All assignments is removed');
 				window.location.href='admin.php?action=reqlist';
 				</script>"; 
 	}

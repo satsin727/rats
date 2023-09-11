@@ -55,13 +55,7 @@ if(isset($_GET['do']))
 	$do=$_GET['do'];	
 	$id=$_GET['id'];
 	?>
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
-		<div class="row">
-			<ol class="breadcrumb">
-				<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-				<li class="active"><?php echo $do; ?> User Details</li>
-			</ol>
-		</div>
+	
 		<?php
 	if($do=='changestatus')
 	{

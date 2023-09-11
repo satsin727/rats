@@ -63,7 +63,7 @@ if($status==1)
 
 	}
 
-if($status==0) 
+if($status==0 || $status==3) 
 	{ 
 		$inquery = "UPDATE `req` SET `status` = '1' WHERE `id` = $id";
 		$ins= $conn->prepare($inquery);

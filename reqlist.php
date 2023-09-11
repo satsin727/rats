@@ -67,7 +67,7 @@ $data = $ins->fetchAll();
 				<div class="panel panel-default">
 					<?php if($dta['level'] == 1 ||$dta['level'] == 2)
 {  ?>
-					<div class="panel-heading"><a href="admin.php?action=addreq&type=1"><button name="addauser" class="btn btn-primary">Add a Requirement</button></a></div>
+					<div class="panel-heading"><a href="admin.php?action=addreq&type=1"><button name="addauser" class="btn btn-primary">Add a C2C Requirement</button></a></div>
 
 
 				<?php } ?>
@@ -135,11 +135,11 @@ foreach( $data as $row) {
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 
-    	<td> <?php if($row['status']==1) { echo "Active"; } else echo "closed"; ?></td>
+    	<td> <?php if($row['status']==1) { echo "Active"; } else if($row['status']==3) { echo "Deleted"; } else { echo "closed"; } ?></td>
     	<td> 
     		<a href="reqcmd.php?do=edit&id=<?php echo $row['id']; ?>"><img src="images/b_edit.png" alt="Edit" width="16" height="16" border="0" title="Edit" /></a>
     				 &nbsp;&nbsp;&nbsp;
-    				<a href ="reqcmd.php?do=delete&id=<?php echo $row['id']; ?>" onClick="return confirm('Are you sure you want to delete ?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a>
+    			<?php if($dta['level'] == 1) {  ?>	<a href ="reqcmd.php?do=delete&id=<?php echo $row['id']; ?>" onClick="return confirm('Are you sure you want to delete ?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a><?php } ?>
     				 &nbsp;&nbsp;&nbsp;
     				<a href="reqcmd.php?do=changestatus&id=<?php echo $row['id']; ?>"><?php if($row['status']==1) { echo "Deactivate"; } else echo "Activate"; ?></a>
     			

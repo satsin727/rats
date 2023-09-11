@@ -106,7 +106,11 @@ if(isset($_GET['do']))
 	$do="foobar";
 	$do=$_GET['do'];	
 	$id=$_GET['id'];
-	$aid=$_GET['aid'];
+
+	if(isset($_GET['aid']))
+	{
+		$aid=$_GET['aid'];
+	}
 	?>
 	
 		<?php

@@ -101,7 +101,7 @@ if($status==0 || $status==3)
 	{
 		if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 		{
-			$qcid = "select * from users where ulevel = 4 or ulevel = 2";
+			$qcid = "select * from users where level = 4 or level = 2";
 			$cq= $conn->prepare($qcid);
 			$cq->execute();
 			$cdta = $cq->fetchAll();

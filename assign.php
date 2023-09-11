@@ -124,13 +124,13 @@ foreach( $data as $row) {
 		$referral = "$".$row['referral']."/hr";
 		$salary = "$".$row['salary']."/annually";
 	}
-	if($row['assigned']==1)
-	{
-		$rec_id = $row['rec_id'];
+	
+	$rec_id = $row['rec_id'];
+	$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $rec_id")->fetchColumn();
+	
 	//	$reqid = $row['id'];
-		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $rec_id;")->fetchColumn();
 	//	$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
-	}
+	
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>

@@ -106,6 +106,7 @@ if(isset($_GET['do']))
 	$do="foobar";
 	$do=$_GET['do'];	
 	$id=$_GET['id'];
+	$aid=$_GET['aid'];
 	?>
 	
 		<?php
@@ -127,6 +128,10 @@ if(isset($_GET['do']))
 				$dinquery = "Delete from `assigned` WHERE `req_id` = $id";
 				$dins= $conn->prepare($dinquery);
 				$dins->execute();
+
+				$uinquery = "UPDATE `req` SET `assigned` = '0' WHERE `id` = $id";
+				$uins= $conn->prepare($uinquery);
+				$uins->execute();
 				
 				echo "<script>
 						alert(' Requirement has been Disabled.');
@@ -194,6 +199,11 @@ if(isset($_GET['do']))
 		$dinquery = "Delete from `assigned` WHERE `req_id` = $id";
 		$dins= $conn->prepare($dinquery);
 		$dins->execute();
+		
+			$uinquery = "UPDATE `req` SET `assigned` = '0' WHERE `id` = $id";
+			$uins= $conn->prepare($uinquery);
+			$uins->execute();
+		
 		echo "<script>
 				alert(' Requirement has been deleted. All assignments is removed');
 				window.location.href='admin.php?action=reqlist';
@@ -201,9 +211,17 @@ if(isset($_GET['do']))
 	}
 	else if($do=='deleteassign')
 	{
-		$inquery = "Delete from `assigned` WHERE `aid` = $id";
+		$inquery = "Delete from `assigned` WHERE `aid` = $aid";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
+		$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $id")->fetchColumn();
+		if($assignedcount==0)
+		{
+			$uinquery = "UPDATE `req` SET `assigned` = '0' WHERE `id` = $id";
+			$uins= $conn->prepare($uinquery);
+			$uins->execute();
+		}
+		
 		echo "<script>
 				alert('Assignment has been deleted.');
 				window.location.href='admin.php?action=assignreq';

@@ -24,6 +24,27 @@ require("includes/header.php");
 $selected = "reqlist";
 require("includes/menu.php");
 
+
+
+
+if(isset($_POST['assignrecruiter']))
+		{	
+			if($dta['level'] == 1 || $dta['level'] == 2)
+		{
+			$req_id = $_POST['req_id'];
+			$rec_id = $_POST['rec_id'];			
+			$assignedby = $_POST['uid'];
+			$currentdatetime =date('Y-m-d H:i:s');
+
+			$inquery = "INSERT INTO `assigned` (`id`, `req_id`, `rec_id`, `assignedby`, `datetime`) 
+VALUES (NULL, '$req_id', '$rec_id', '$assignedby', '$currentdatetime');";
+		$ins= $conn->prepare($inquery);
+		$ins->execute();
+			echo "<script>alert('Recruiter assigned to this role.');window.close();</script>"; 
+		}
+		echo "<script>alert('You need permission to assign recruiters.');window.close();</script>";
+	}
+
 if($dta['level'] == 1)
 {
 
@@ -75,6 +96,42 @@ if($status==0 || $status==3)
 
 	}
 	
+	}
+	if($do=='assign')
+	{
+		if($dta['level'] == 1 || $dta['level'] == 2)
+		{
+			$qcid = "select * from users where ulevel = 4 or ulevel = 2";
+			$cq= $conn->prepare($qcid);
+			$cq->execute();
+			$cdta = $cq->fetchAll();
+	?>
+		<form action="#" method="post">
+			<tr> <td><label>Recruiter:</label> </td>
+				<td> 
+				<select name="rec_id" >
+									<?php
+								foreach( $cdta as $row) { ?>
+										<option value="<?php echo $row['uid']; ?>"><?php echo $row['name']."<".$row['email'].">"; ?></option>
+									<?php } ?></select>
+				</td> 
+			</tr> 
+            	<br> <input type="hidden" name="uid" value="<?php echo $dta['uid']; ?>">
+				<br> <input type="hidden" name="req_id" value="<?php echo $id; ?>">
+		
+			<tr> 				
+			<td class="button">
+			<button type="submit" name="assignrecruiter">Assign</button> </td>
+			</tr>
+		</form>
+
+	<?php
+		}
+		echo "<script>
+				alert(' Assigning permission is not set.');
+				window.location.href='admin.php?action=reqlist';
+				</script>";
+
 	}
 	if($do=='delete')
 	{

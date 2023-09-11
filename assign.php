@@ -133,7 +133,7 @@ foreach( $data as $row) {
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
-		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['B.datetime']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
+		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['datetime']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
     	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
     	<td data-search="<?php echo $row['end_client']; ?>"> <?php echo $row['end_client']; ?></td>
     	
@@ -150,7 +150,7 @@ foreach( $data as $row) {
 
     	<td> 
 		
-    	<?php if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3) {  ?>	<a href ="reqcmd.php?do=deleteassign&id=<?php echo $row['B.id']; ?>" onClick="return confirm('Are you sure you want to delete the assignment?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a> &nbsp;&nbsp;&nbsp; <?php } ?>
+    	<?php if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3) {  ?>	<a href ="reqcmd.php?do=deleteassign&id=<?php echo $row['id']; ?>" onClick="return confirm('Are you sure you want to delete the assignment?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a> &nbsp;&nbsp;&nbsp; <?php } ?>
     		
     	</td>
     </tr>

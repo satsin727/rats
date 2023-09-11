@@ -15,7 +15,7 @@ $ins->bindValue( ":u", $sessid, PDO::PARAM_STR );
 $ins->execute();
 $dta = $ins->fetch();
 
-
+$uid = $dta['uid'];
 if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
@@ -54,10 +54,10 @@ if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1";
 		}
 	else if($dta['level'] == 3) {
-			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and A.sm = $dta['uid']";
+			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and A.sm = $uid";
 		}
 	else if($dta['level'] == 4) {
-			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and B.rec_id = $dta['uid']";
+			$query = "select * from req as A INNER JOIN assigned as B on A.id = B.req_id where A.status = 1 and B.rec_id = $uid";
 		}
 $ins= $conn->prepare($query);
 $ins->execute();

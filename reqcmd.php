@@ -150,7 +150,7 @@ if(isset($_GET['do']))
 			$qcid = "select * from req where id = $id";
 			$cq= $conn->prepare($qcid);
 			$cq->execute();
-			$cdta = $cq->fetchAll();
+			$cdta = $cq->fetch();
 
 		?>
 

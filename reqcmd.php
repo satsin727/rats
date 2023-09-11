@@ -36,7 +36,7 @@ if(isset($_POST['assignrecruiter']))
 			$assignedby = $_POST['uid'];
 			$currentdatetime =date('Y-m-d H:i:s');
 
-			$inquery = "INSERT INTO `assigned` (`id`, `req_id`, `rec_id`, `assignedby`, `datetime`) 
+			$inquery = "INSERT INTO `assigned` (`aid`, `req_id`, `rec_id`, `assignedby`, `datetime`) 
 VALUES (NULL, '$req_id', '$rec_id', '$assignedby', '$currentdatetime');";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();

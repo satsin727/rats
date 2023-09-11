@@ -48,7 +48,56 @@ VALUES (NULL, '$req_id', '$rec_id', '$assignedby', '$currentdatetime');";
 if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 {
 
+	if(isset($_POST['editreqsave']))
+	{	
+		$sub_rate = "0";
+		$min_buy_rate = "0";
+		$max_buy_rate = "0";
+		$referral = "0";
+		$salary = "0";
+		$req_id = $_POST['req_id'];
+		$reqtype = $_POST['reqtype'];
+		$currentdatetime =date('Y-m-d H:i:s');
 
+		$title = $_POST['title'];
+		$location = $_POST['location'];
+		$duration = $_POST['duration'];
+		$contract_type = $_POST['contract_type'];
+		$visa = $_POST['visa'];
+		$local = $_POST['local'];
+		$interview = $_POST['interview'];
+		if(isset($_POST['sub_rate']))
+			{		$sub_rate = $_POST['sub_rate'];		
+					if($sub_rate<50)
+			{ $min_buy_rate = $sub_rate - 10;
+			  $max_buy_rate = $sub_rate -5; }
+		else if($sub_rate<85)
+			{ $min_buy_rate = $sub_rate - 20;
+			  $max_buy_rate = $sub_rate - 10; }
+	    else if($sub_rate<100)
+			{ $min_buy_rate = $sub_rate - 25;
+			  $max_buy_rate = $sub_rate - 10; }
+		else if($sub_rate>100)
+			{ $min_buy_rate = $sub_rate - 25;
+			  $max_buy_rate = $sub_rate - 15; }
+		$buy_rate = "$".$min_buy_rate."-".$max_buy_rate."/hr"; }
+		if(isset($_POST['referral']))
+			{		$referral = $_POST['referral']; 	}
+		if(isset($_POST['salary']))
+			{		$salary = $_POST['salary'];	}
+		$end_client = $_POST['end_client'];
+		$tier1_ip= $_POST['tier1_ip'];
+		$needonw2 = $_POST['needonw2'];
+		$description = base64_encode($_POST['description']);
+		$add_notes= $_POST['add_notes'];
+
+
+		$inquery = "Update `req` set `title` = $title, `location` = $location, `duration` = $duration, `req_type` = $reqtype,`contract_type` = $contract_type, `visa` = $visa, `local` = $local, `interview` = $interview, `sub_rate` = $sub_rate, `min_buy_rate` = $min_buy_rate, `max_buy_rate` = $max_buy_rate,`referral` = $referral, `salary` = $salary, `end_client` = $end_client, `tier1_ip` = $tier1_ip, `needonw2` = $needonw2, `description` = $description, `add_notes` = $add_notes, `date`= $currentdatetime where id = $req_id";
+		$ins= $conn->prepare($inquery);
+		$ins->execute();
+		echo "<script>alert('Requirement updated');window.location.href='admin.php?action=reqlist';</script>"; 
+
+}
 if(isset($_GET['do']))
 {
 	$do="foobar";
@@ -267,7 +316,7 @@ if(isset($_GET['do']))
 		<input type="hidden" name="reqtype" value="<?php echo $cdta['req_type']; ?>">
 		<input type="hidden" name="req_id" value="<?php echo $cdta['id']; ?>">
 
-									<td  align="left" ><button type="submit" name="save" class="btn btn-primary">Save</button> </td>					
+									<td  align="left" ><button type="submit" name="editreqsave" class="btn btn-primary">Save</button> </td>					
 						</tr>
 						</table>
 

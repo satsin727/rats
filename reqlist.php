@@ -148,7 +148,7 @@ foreach( $data as $row) {
     	<td> 
 		<?php if($dta['level'] == 1 || $dta['level'] == 2) { ?><a href ="reqcmd.php?do=assign&id=<?php echo $row['id']; ?>" onclick="window.open(this.href,'popupwindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=400,width=400,addressbar=no'); return false;"><button name="assignrecruiter" class="btn btn-primary">Assign</button></a> <?php } ?>
     		<a href="reqcmd.php?do=edit&id=<?php echo $row['id']; ?>"><img src="images/b_edit.png" alt="Edit" width="16" height="16" border="0" title="Edit" /></a>
-    				 &nbsp;&nbsp;&nbsp;
+    				 &nbsp;
     	<?php if($dta['level'] == 1) {  ?>	<a href ="reqcmd.php?do=delete&id=<?php echo $row['id']; ?>" onClick="return confirm('Are you sure you want to delete ?')"><img src="images/b_drop.png" alt="Delete" width="16" height="16" border="0" title="Delete"/></a> &nbsp;&nbsp;&nbsp; <?php } ?>
     				 
     		<a href="reqcmd.php?do=changestatus&id=<?php echo $row['id']; ?>"><?php if($row['status']==1) { echo "Deactivate"; } else echo "Activate"; ?></a>

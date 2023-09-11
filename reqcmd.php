@@ -197,7 +197,7 @@ if(isset($_GET['do']))
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
 		echo "<script>
-				alert(' assignment has been deleted.');
+				alert('Assignment has been deleted.');
 				window.location.href='admin.php?action=assignreq';
 				</script>"; 
 	}

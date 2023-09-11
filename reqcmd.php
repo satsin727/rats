@@ -29,7 +29,7 @@ $selected = "reqlist";
 
 if(isset($_POST['assignrecruiter']))
 		{	
-			if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
+			if($dta['level'] == 1 || $dta['level'] == 2 )
 		{
 			$req_id = $_POST['req_id'];
 			$rec_id = $_POST['rec_id'];			
@@ -145,7 +145,7 @@ if(isset($_GET['do']))
 	}
 	else if($do=='assign')
 	{
-		if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
+		if($dta['level'] == 1 || $dta['level'] == 2)
 		{
 			$qcid = "select * from users where level = 4 or level = 2";
 			$cq= $conn->prepare($qcid);

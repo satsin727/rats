@@ -89,7 +89,7 @@ $data = $ins->fetchAll();
 								<th data-field="Rate" data-sortable="true">Buy Rate</th>								
 								<th data-field="Req type" data-sortable="true">Type</th>
 						        <th data-field="SM" data-sortable="true">SM</th>
-						        <th data-field="Submissions" >Recruiter</th>
+						        <th data-field="Recruiter" >Recruiter</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="cmd" >Actions</th>
 						    </tr>

@@ -17,7 +17,7 @@ $ins->execute();
 $dta = $ins->fetch();
 $conn=null;
 
-if(isset($_SESSION['username']) && $dta['sess']==$_SESSION['username'])
+if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
 require("includes/header.php");

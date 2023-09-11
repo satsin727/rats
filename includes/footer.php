@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['username'])) { 	?>
+<?php if(isset($_SESSION['rat_username'])) { 	?>
 
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

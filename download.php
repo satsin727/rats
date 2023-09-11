@@ -1,8 +1,8 @@
 <?php
 require( "config.php" );
-if($_SESSION['id'])
+if($_SESSION['rat_id'])
 {
-$sessid = $_SESSION['id'];
+$sessid = $_SESSION['rat_id'];
 }
 else
 {
@@ -17,7 +17,7 @@ $ins->execute();
 $dta = $ins->fetch();
 $conn=null; 
 
-if(isset($_SESSION['username']) && $dta['sess']==$_SESSION['username'])
+if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
 $cid = $_GET['cid'];

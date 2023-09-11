@@ -1,7 +1,7 @@
 <?php
-if($_SESSION['id'])
+if($_SESSION['rat_id'])
 {
-$sessid = $_SESSION['id'];
+$sessid = $_SESSION['rat_id'];
 }
 else
 {
@@ -17,7 +17,7 @@ $dta = $ins->fetch();
 
 
 
-if(isset($_SESSION['username']) && $dta['sess']==$_SESSION['username'])
+if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
 require("includes/header.php");

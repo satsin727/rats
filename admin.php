@@ -3,7 +3,7 @@
 require( "config.php" );
 
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "";
-$username = isset( $_SESSION['username'] ) ? $_SESSION['username'] : "";
+$username = isset( $_SESSION['rat_username'] ) ? $_SESSION['rat_username'] : "";
 
 if ( $action != "login" && $action != "logout" && !$username ) {
   login();
@@ -106,11 +106,11 @@ window.location.href='lout.php?id="."$rid"."';
 
       // Login successful: Create a session and redirect to the admin homepage
       $date = date("Y-m-d H:i:s");
-      $_SESSION['username'] = md5(md5($u).$date);
-      $_SESSION['id']= $dta['uid'];
-      $_SESSION['date'] = $date ; 
+      $_SESSION['rat_username'] = md5(md5($u).$date);
+      $_SESSION['rat_id']= $dta['uid'];
+      //$_SESSION['rat_date'] = $date ; 
       $ip= $_SERVER['REMOTE_ADDR'];
-      $q2 = "UPDATE `users` SET `sess` = \"".$_SESSION['username']."\", `date` = \"".$date."\", `lastloginip` = \"".$ip."\" WHERE `users`.`uid` = \"".$dta['uid']."\" ";
+      $q2 = "UPDATE `users` SET `sess` = \"".$_SESSION['rat_username']."\", `date` = \"".$date."\", `lastloginip` = \"".$ip."\" WHERE `users`.`uid` = \"".$dta['uid']."\" ";
       $inssess= $conn->prepare($q2);
       $inssess->execute();
       header( "Location: admin.php" );
@@ -147,10 +147,10 @@ window.location.href='login.php';
 
 
 function logout() {
-  unset( $_SESSION['username'] );
-  $uid = $_SESSION['id'];
-  unset ($_SESSION['id']);
-  unset ($_SESSION['date']);  
+  unset( $_SESSION['rat_username'] );
+  $uid = $_SESSION['rat_id'];
+  unset ($_SESSION['rat_id']);
+  //unset ($_SESSION['date']);  
   $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD);
  $q4 = "UPDATE `users` set `sess` = \"0\" where `uid` = :id ";
  $lout= $conn->prepare($q4);
@@ -176,9 +176,9 @@ function clientslist() {  $selected = "clientslist"; require( "viewcombined.php"
 function updatedhotlist() {  $selected = "updatedhotlist"; require( "updatedhotlist.php" ); }
 function clientlistdownload()
 {
-if($_SESSION['id'])
+if($_SESSION['rat_id'])
 {
-$sessid = $_SESSION['id'];
+$sessid = $_SESSION['rat_id'];
 }
 else
 {

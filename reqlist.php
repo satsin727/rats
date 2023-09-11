@@ -1,7 +1,7 @@
 <?php
-if($_SESSION['id'])
+if($_SESSION['rat_id'])
 {
-$sessid = $_SESSION['id'];
+$sessid = $_SESSION['rat_id'];
 }
 else
 {
@@ -16,7 +16,7 @@ $ins->execute();
 $dta = $ins->fetch();
 
 
-if(isset($_SESSION['username']) && $dta['sess']==$_SESSION['username'])
+if(isset($_SESSION['rat_username']) && $dta['sess']==$_SESSION['rat_username'])
 {
 
 require("includes/header.php");
@@ -25,7 +25,7 @@ require("includes/menu.php");
 if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 {
 
-$query = "select * from req where `status` = 1";
+$query = "select * from req";
 $ins= $conn->prepare($query);
 $ins->execute();
 $data = $ins->fetchAll();

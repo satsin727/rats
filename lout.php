@@ -1,8 +1,8 @@
 <?php
 require( "config.php" );
-if($_SESSION['id'])
+if($_SESSION['rat_id'])
 {
-$sessid = $_SESSION['id'];
+$sessid = $_SESSION['rat_id'];
 }
 else
 {
@@ -15,9 +15,9 @@ $uid = $_GET['id'];
  $lout= $conn->prepare($q4);
  $lout->bindValue( ":id", $uid, PDO::PARAM_INT );
  $lout->execute();
- unset( $_SESSION['username'] );
-  unset ($_SESSION['id']);
-  unset ($_SESSION['date']); 
+ unset( $_SESSION['rat_username'] );
+  unset ($_SESSION['rat_id']);
+  //unset ($_SESSION['date']); 
   header( "Location: admin.php" );
 
 ?>

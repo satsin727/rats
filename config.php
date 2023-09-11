@@ -11,8 +11,8 @@ define( "DB_DSN", "mysql:host=localhost;dbname=rats" );
 define( "DB_USERNAME", "metahorizon" );
 define( "DB_PASSWORD", "metahorizon" );
 
-if(!isset($_SESSION['username'])){
-$_SESSION['username']=0;
+if(!isset($_SESSION['rat_username'])){
+$_SESSION['rat_username']=0;
 }
 
 

@@ -1,4 +1,4 @@
-	<?php if(isset($_SESSION['username'])) { 	?>
+	<?php if(isset($_SESSION['rat_username'])) { 	?>
 	
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 	<br> <br>
@@ -7,7 +7,7 @@
  $conn = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
  $query = "select * from users where `sess` = :sess";
  $ins= $conn->prepare($query);
- $ins->bindValue( ":sess", $_SESSION['username'], PDO::PARAM_STR );
+ $ins->bindValue( ":sess", $_SESSION['rat_username'], PDO::PARAM_STR );
  $ins->execute();
  $dta = $ins->fetch();
 

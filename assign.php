@@ -126,9 +126,8 @@ foreach( $data as $row) {
 	}
 	if($row['assigned']==1)
 	{
-		$reqid = $row['id'];
-		$assignedrecid = $conn->query("SELECT rec_id FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
-		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $assignedrecid;")->fetchColumn();
+		$rec_id = $row['rec_id'];
+		$assignedrecsm = $conn->query("SELECT name FROM `users` WHERE `uid`= $rec_id;")->fetchColumn();
 		$assignedcount = $conn->query("SELECT COUNT(*) FROM `assigned` WHERE `req_id`= $reqid;")->fetchColumn();
 	}
 	?>

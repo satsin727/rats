@@ -191,6 +191,16 @@ if(isset($_GET['do']))
 				window.location.href='admin.php?action=reqlist';
 				</script>"; 
 	}
+	else if($do=='deleteassign')
+	{
+		$inquery = "Delete from `assigned` WHERE `aid` = $id";
+		$ins= $conn->prepare($inquery);
+		$ins->execute();
+		echo "<script>
+				alert(' assignment has been deleted.');
+				window.location.href='admin.php?action=assignreq';
+				</script>"; 
+	}
 
 	else if($do=='edit')
 	{

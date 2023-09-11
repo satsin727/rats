@@ -25,6 +25,25 @@ require("includes/menu.php");
 if($dta['level'] == 1 ||$dta['level'] == 2 || $dta['level'] == 3)
 {
 
+	$olddate = 0;
+	if(isset($_POST['date']))
+	{
+		$cdate = $_POST['date'];
+		$olddate = 1;
+		$cdate = strtotime($cdate);
+		$curdate =date('Y-m-d',$cdate);
+	}
+	else
+	{
+		$curdate =date('Y-m-d');
+	}
+	
+    $showweekly=0;
+	if(isset($_GET['showweekly']))
+	{
+		$showweekly=1;
+	}
+
 $query = "select * from req";
 $ins= $conn->prepare($query);
 $ins->execute();
@@ -52,7 +71,10 @@ $data = $ins->fetchAll();
 						    <thead>
 						    <tr>
 						        <th data-field="id" data-sortable="true">ID</th>
+								<th data-field="Datetime"  data-sortable="true">Datetime</th>
 						        <th data-field="Subject"  data-sortable="true">Subject</th>
+								<th data-field="SM" data-sortable="true">Client</th>
+								<th data-field="SM" data-sortable="true">Buy Rate</th>
 						        <th data-field="SM" data-sortable="true">SM</th>
 						        <th data-field="Submissions" >Submissions</th>
 						        <th data-field="Status" >Status</th>
@@ -70,7 +92,10 @@ foreach( $data as $row) {
 	?>
     <tr>
   		<td data-order="<?php echo $i; ?>"> <?php echo $i; $i=$i+1;  ?></td>
+		<td data-search="<?php echo $row['date']; ?>"> <?php $time = strtotime($row['date']); $myFormatForView = date("m/d/y g:i A", $time); echo $myFormatForView; ?></td>
     	<td data-search="<?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?>"> <a href="leads/view.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['title']." - ".$row['location']." - ".$row['duration']; ?> </a> </td>
+    	<td data-search="<?php echo $row['end_client']; ?>"> <?php echo $row['end_client']; ?></td>
+    	<td data-search="<?php echo $row['buy_rate']; ?>"> <?php echo $row['buy_rate']; ?></td>
     	<td data-search="<?php echo $sm_name; ?>"> <?php echo $sm_name; ?></td>
     	<td data-search="<?php echo $row['number_of_subs']; ?>"> <?php echo $row['number_of_subs']; ?></td>
 

@@ -92,7 +92,7 @@ if($dta['level'] == 1 || $dta['level'] == 2 || $dta['level'] == 3)
 		$add_notes= $_POST['add_notes'];
 
 
-		$inquery = "Update `req` set `title` = $title, `location` = $location, `duration` = $duration, `req_type` = $reqtype,`contract_type` = $contract_type, `visa` = $visa, `local` = $local, `interview` = $interview, `sub_rate` = $sub_rate, `min_buy_rate` = $min_buy_rate, `max_buy_rate` = $max_buy_rate,`referral` = $referral, `salary` = $salary, `end_client` = $end_client, `tier1_ip` = $tier1_ip, `needonw2` = $needonw2, `description` = $description, `add_notes` = $add_notes, `date`= $currentdatetime where id = $req_id";
+		$inquery = "Update `req` set `title` = '$title', `location` = '$location', `duration` = '$duration', `req_type` = '$reqtype',`contract_type` = '$contract_type', `visa` = '$visa', `local` = '$local', `interview` = '$interview', `sub_rate` = '$sub_rate', `min_buy_rate` = '$min_buy_rate', `max_buy_rate` = '$max_buy_rate',`referral` = '$referral', `salary` = '$salary', `end_client` = '$end_client', `tier1_ip` = '$tier1_ip', `needonw2` = '$needonw2', `description` = '$description', `add_notes` = '$add_notes', `date`= '$currentdatetime' where id = $req_id";
 		$ins= $conn->prepare($inquery);
 		$ins->execute();
 		echo "<script>alert('Requirement updated');window.location.href='admin.php?action=reqlist';</script>"; 
